@@ -1,7 +1,9 @@
 package com.devsuperior.dscatalog.serivces;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dscatalog.dtos.CategoryDTO;
 import com.devsuperior.dscatalog.entities.Category;
+import com.devsuperior.dscatalog.excptions.EntityNotFoundException;
 import com.devsuperior.dscatalog.repositories.CategoryRespository;
 
 @Service
-public class CategorySerivice {
+public class CategoryService {
 
 	@Autowired
 	private CategoryRespository repository;
@@ -22,6 +25,14 @@ public class CategorySerivice {
 
 		List<Category> list = repository.findAll();
 		return list.stream().map(CategoryDTO::new).collect(Collectors.toList());
+
+	}
+
+	@Transactional(readOnly = true)
+	public CategoryDTO findById(Long id) {
+		Optional<Category> obj = repository.findById(id);
+		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));
+		return new CategoryDTO(entity);
 
 	}
 }
