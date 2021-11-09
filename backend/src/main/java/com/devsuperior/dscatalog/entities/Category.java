@@ -16,16 +16,15 @@ import com.devsuperior.dscatalog.dtos.CategoryDTO;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+
+
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@Data
 @Entity
 @Table(name = "tb_category")
 public class Category implements Serializable {
@@ -37,11 +36,8 @@ public class Category implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Long id;
-
 	private String name;
-
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	@Setter(value = AccessLevel.NONE)
 	private Instant createdAt;
