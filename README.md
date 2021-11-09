@@ -25,6 +25,7 @@ A aplicação consiste em uma exibição do número de vendas por vendedores, on
 - Spring Boot
 - JPA / Hibernate
 - Maven
+- Lombok 
 ## Front end
 - HTML / CSS / JS / TypeScript
 - ReactJS
