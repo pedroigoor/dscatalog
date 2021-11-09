@@ -12,10 +12,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.dscatalog.dtos.CategoryDTO;
 import com.devsuperior.dscatalog.dtos.ProductDTO;
+import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 import com.devsuperior.dscatalog.excptions.DataBaseException;
 import com.devsuperior.dscatalog.excptions.ResourceNotFoundException;
+import com.devsuperior.dscatalog.repositories.CategoryRespository;
 import com.devsuperior.dscatalog.repositories.ProductRespository;
 
 @Service
@@ -23,6 +26,8 @@ public class ProductService {
 
 	@Autowired
 	private ProductRespository repository;
+	@Autowired
+	private CategoryRespository categoryRespository;
 
 	@Transactional(readOnly = true)
 	public Page<ProductDTO> findAllPaged(PageRequest pageRequest) {
@@ -34,20 +39,23 @@ public class ProductService {
 	public ProductDTO findById(Long id) {
 		Optional<Product> obj = repository.findById(id);
 		Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
-		return new ProductDTO(entity,entity.getCategories());
+		return new ProductDTO(entity, entity.getCategories());
 
 	}
 
 	@Transactional
 	public ProductDTO save(ProductDTO dto) {
-		return null ;//new ProductDTO(repository.save(new Product(dto)));
+		Product enity = new Product();
+		copyDtoToEntity(dto, enity);
+		enity = repository.save(enity);
+		return new ProductDTO(enity);
 	}
 
 	@Transactional
 	public ProductDTO update(Long id, ProductDTO dto) {
 		try {
 			Product enity = repository.getOne(id);
-		//	enity.setName(dto.getName());
+			copyDtoToEntity(dto, enity);
 			enity = repository.save(enity);
 			return new ProductDTO(enity);
 		} catch (EntityNotFoundException e) {
@@ -65,6 +73,21 @@ public class ProductService {
 			throw new DataBaseException("Integrity violantion");
 		}
 
+	}
+
+	private void copyDtoToEntity(ProductDTO dto, Product enity) {
+		enity.setName(dto.getName());
+		enity.setDescription(dto.getDescription());
+		enity.setImgUrl(dto.getImgUrl());
+		enity.setPrice(dto.getPrice());
+		enity.setDate(dto.getDate());
+		
+		enity.getCategories().clear();
+		for(CategoryDTO catDto : dto.getCategories()) {
+			Category category = categoryRespository.getOne(catDto.getId());
+			enity.getCategories().add(category);
+		}
+		
 	}
 
 }

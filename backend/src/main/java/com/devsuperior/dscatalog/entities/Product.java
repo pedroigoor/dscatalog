@@ -49,7 +49,6 @@ public class Product implements Serializable {
 	@NonNull
 	private String imgUrl;
 
-	@Setter(value = AccessLevel.NONE)
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	@NonNull
 	private Instant date;

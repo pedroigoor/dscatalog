@@ -35,6 +35,7 @@ public class ProductDTO  implements Serializable {
 	private Double price;
 	@NonNull
 	private String imgUrl;
+	
 	@NonNull
 	private Instant date;
 
