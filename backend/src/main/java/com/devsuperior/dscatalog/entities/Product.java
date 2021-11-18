@@ -17,14 +17,11 @@ import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;	
 import lombok.Setter;
 
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
@@ -34,30 +31,31 @@ public class Product implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
-	@NonNull
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NonNull
 	private String name;
-	@NonNull
 	@Column(columnDefinition = "TEXT")
 	private String description;
-	@NonNull
 	private Double price;
-	@NonNull
 	private String imgUrl;
-
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	@NonNull
 	private Instant date;
+
+	public Product(Long id,  String name, String description, Double price, String imgUrl,
+			 Instant date) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.imgUrl = imgUrl;
+		this.date = date;
+	}
 
 	@Setter(value = AccessLevel.NONE)
 	@ManyToMany
-	@JoinTable(name = "tb_product_category",
-				joinColumns = @JoinColumn(name= "product_id"),
-				inverseJoinColumns =  @JoinColumn(name= "category_id"))
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
 }

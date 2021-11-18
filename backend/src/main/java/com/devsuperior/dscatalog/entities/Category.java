@@ -18,12 +18,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 
 
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Data
 @Entity
 @Table(name = "tb_category")
@@ -36,7 +39,9 @@ public class Category implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NonNull
 	private Long id;
+	@NonNull
 	private String name;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	@Setter(value = AccessLevel.NONE)

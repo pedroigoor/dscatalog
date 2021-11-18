@@ -1,4 +1,4 @@
-package com.devsuperior.dscatalog.serivces;
+package com.devsuperior.dscatalog.services;
 
 import java.util.Optional;
 

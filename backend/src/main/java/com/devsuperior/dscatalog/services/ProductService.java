@@ -1,4 +1,4 @@
-package com.devsuperior.dscatalog.serivces;
+package com.devsuperior.dscatalog.services;
 
 import java.util.Optional;
 
@@ -19,13 +19,13 @@ import com.devsuperior.dscatalog.entities.Product;
 import com.devsuperior.dscatalog.excptions.DataBaseException;
 import com.devsuperior.dscatalog.excptions.ResourceNotFoundException;
 import com.devsuperior.dscatalog.repositories.CategoryRespository;
-import com.devsuperior.dscatalog.repositories.ProductRespository;
+import com.devsuperior.dscatalog.repositories.ProductRepository;
 
 @Service
 public class ProductService {
 
 	@Autowired
-	private ProductRespository repository;
+	private ProductRepository repository;
 	@Autowired
 	private CategoryRespository categoryRespository;
 
