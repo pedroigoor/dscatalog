@@ -35,6 +35,7 @@ public class ProductRespositoryTests {
 		Product product = Factory.createProduct();
 		product.setId(null);
 
+		
 		product = repository.save(product);
 		Optional<Product> result = repository.findById(product.getId());
 

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.NoArgsConstructor;	
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Data
@@ -42,8 +42,12 @@ public class Product implements Serializable {
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 
-	public Product(Long id,  String name, String description, Double price, String imgUrl,
-			 Instant date) {
+	@Setter(value = AccessLevel.NONE)
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	private Set<Category> categories = new HashSet<>();
+
+	public Product(Long id, String name, String description, Double price, String imgUrl, Instant date) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -52,10 +56,5 @@ public class Product implements Serializable {
 		this.imgUrl = imgUrl;
 		this.date = date;
 	}
-
-	@Setter(value = AccessLevel.NONE)
-	@ManyToMany
-	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-	private Set<Category> categories = new HashSet<>();
 
 }
