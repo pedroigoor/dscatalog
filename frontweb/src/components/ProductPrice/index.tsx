@@ -1,10 +1,14 @@
+import { formatPrice } from 'util/formatters';
 import './styles.css';
 
-function ProductPrice() {
+type Props = {
+  price: number;
+};
+function ProductPrice({ price }: Props) {
   return (
     <div className="product-price-container">
       <span>R$</span>
-      <h3>1234.45</h3>
+      <h3>{formatPrice(price)}</h3>
     </div>
   );
 }
