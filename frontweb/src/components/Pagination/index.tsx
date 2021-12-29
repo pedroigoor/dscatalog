@@ -1,5 +1,7 @@
-import './styles.css';
 import { ReactComponent as ArrowIcon } from 'assets/images/arrow.svg';
+
+import './styles.css';
+
 const Pagination = () => {
   return (
     <div className="pagination-container">
