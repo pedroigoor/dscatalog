@@ -9,7 +9,7 @@ import { getTokenData } from 'util/auth';
 
 import './styles.css';
 
-type FormData = {
+type CreditialsDTO = {
   username: string;
   password: string;
 };
@@ -28,12 +28,12 @@ const Login = () => {
 
   const [hasError, setHasError] = useState(false);
 
-  const { register, handleSubmit, formState: {errors} } = useForm<FormData>();
+  const { register, handleSubmit, formState: {errors} } = useForm<CreditialsDTO>();
 
   const history = useHistory();
 
-  const onSubmit = (formData: FormData) => {
-    requestBackendLogin(formData)
+  const onSubmit = (creditialsDTO: CreditialsDTO) => {
+    requestBackendLogin(creditialsDTO)
       .then((response) => {
         saveAuthData(response.data);
         setHasError(false);

@@ -10,10 +10,20 @@
   font-size: 1em;
   letter-spacing: -0.015em;
   color: #263238;
+  margin-bottom: 15px;
 }
 
 @media (min-width: 576px) {
-  .catalog-container {
-    font-size: 30px;
+  .catalog-title-container h1 {
+     font-size: 30px; 
   }
+}
+
+
+
+
+@media (min-width: 768px) {
+.catalog-title-container div  {
+margin-left: 0;
+}
 }
